@@ -23,6 +23,11 @@ The intent of this foundation is to include:
 
 This initial project is not intended to directly support HomeAssistant.
 
+## Status
+
+* 2026-05-07 Blink LED
+* 2026-05-06 Add MQTT, disable Home Assistant API
+
 ## 2026-05-06 Setup
 
 Initial install in a Python virtual environment is:
@@ -52,6 +57,10 @@ esphome version
 ## 2026-05-06 project creation
 
 ```text
-esphome wizard ESPHome-foundation.yaml 
-esphome run ESPHome-foundation.yaml 
+esphome wizard ESPHome-foundation.yaml # first run
+esphome run ESPHome-foundation.yaml # Subsequent runs
 ```
+
+## Errata
+
+* 2026-05-07 ESPHome seems not to provide a templating option for setting hostname. For example it would be useful to have something like "[family]-[MAC-3]" that wouild expand to something like `ESP32-B9ACE8` where the device's MAC address is `08:3A:F2:B9:AC:E8`. there is a "substitute capacity" that allows to define the name once and use it myltiple times.
