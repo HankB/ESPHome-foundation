@@ -22,3 +22,36 @@ The intent of this foundation is to include:
 * Wifi - of course!
 
 This initial project is not intended to directly support HomeAssistant.
+
+## 2026-05-06 Setup
+
+Initial install in a Python virtual environment is:
+
+```text
+python3 --version
+pushd ~/esp
+python3 -m venv venv
+source venv/bin/activate
+pip3 install esphome
+esphome version
+```
+
+```text
+(venv) hbarta@olive:~/esp$ esphome version
+Version: 2026.4.5
+(venv) hbarta@olive:~/esp$ 
+```
+
+ESPHome has been installed in `~/ESP/venv` and can be started by typing:
+
+```text
+source ~/esp/venv/bin/activate
+esphome version
+```
+
+## 2026-05-06 project creation
+
+```text
+esphome wizard ESPHome-foundation.yaml 
+esphome run ESPHome-foundation.yaml 
+```
