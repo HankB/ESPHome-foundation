@@ -1,5 +1,8 @@
+substitutions:
+  hostname: esp32-b9ace8
+
 esphome:
-  name: ESP32-B9ACE8
+  name: ${hostname}
 
 esp32:
   variant: ESP32
@@ -19,10 +22,13 @@ mqtt:
   log_topic:
     topic: debug
     level: ERROR
+  client_id: ${hostname}
+  topic_prefix: HA
 
 ota:
   - platform: esphome
 
+# https://community.home-assistant.io/t/blink-how/307243/14
 # Blink the blue LED
 output:
   - platform: gpio
