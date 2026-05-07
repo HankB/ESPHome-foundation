@@ -54,13 +54,24 @@ source ~/esp/venv/bin/activate
 esphome version
 ```
 
-## 2026-05-06 project creation
+## 2026-05-06 build and flash
 
 ```text
-esphome wizard ESPHome-foundation.yaml # first run
-esphome run ESPHome-foundation.yaml # Subsequent runs
+esphome wizard ESPHome-foundation.yaml  # first run
+esphome run ESPHome-foundation.yaml     # Subsequent runs
+esphome logs ESPHome-foundation.yaml    # Monitor w/out flashing target
+esphome compile ESPHome-foundation.yaml # buiild w/out flashing
 ```
 
 ## Errata
 
 * 2026-05-07 ESPHome seems not to provide a templating option for setting hostname. For example it would be useful to have something like "[family]-[MAC-3]" that wouild expand to something like `ESP32-B9ACE8` where the device's MAC address is `08:3A:F2:B9:AC:E8`. there is a "substitute capacity" that allows to define the name once and use it myltiple times.
+* 2026-05-07 Default MQTT setup publishes the following messages, the last of which suggests it sets a last will and testament.
+
+```text
+esp32-b9ace8/status online
+esphome/discover/esp32-b9ace8 {"ip":"10.20.1.85","name":"esp32-b9ace8","version":"2026.4.5","mac":"083af2b9ace8","platform":"ESP32","board":"esp32dev","network":"wifi"}
+esp32-b9ace8/status offline
+```
+
+* 2026-05-07 while monitoring the ESP32 appeared to reboot. This should not be due to the warning about 15 minute reboot at <https://esphome.io/components/mqtt/>
