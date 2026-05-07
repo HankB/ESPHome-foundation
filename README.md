@@ -20,11 +20,13 @@ The intent of this foundation is to include:
 * MQTT to support publishing.
 * NTP/SNTP to provide time stamps.
 * Wifi - of course!
+* Add a simple sensor - DS18B20 temperature.
 
 This initial project is not intended to directly support HomeAssistant.
 
 ## Status
 
+* 2026-05-07 SNTP time and publish in two formats.
 * 2026-05-07 Blink LED
 * 2026-05-06 Add MQTT, disable Home Assistant API
 
