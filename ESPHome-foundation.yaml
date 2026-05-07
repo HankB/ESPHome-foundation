@@ -10,9 +10,15 @@ esp32:
 logger:
 
 # Enable Home Assistant API
-api:
-  encryption:
-    key: !secret encryption_key
+#api:
+  #encryption:
+    #key: !secret encryption_key
+    # 
+mqtt:
+  broker: !secret mqtt_broker
+  log_topic:
+    topic: debug
+    level: ERROR
 
 ota:
   - platform: esphome
