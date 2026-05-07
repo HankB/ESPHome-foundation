@@ -1,5 +1,5 @@
 esphome:
-  name: foundation
+  name: ESP32-B9ACE8
 
 esp32:
   variant: ESP32
@@ -23,6 +23,20 @@ mqtt:
 ota:
   - platform: esphome
 
+# Blink the blue LED
+output:
+  - platform: gpio
+    pin:
+      number: 2
+      mode: output
+    id: blueLED
+
+interval:
+  - interval: 1000ms
+    then:
+      - output.turn_on: blueLED
+      - delay: 50ms
+      - output.turn_off: blueLED
 
 wifi:
   ssid: !secret wifi_ssid
