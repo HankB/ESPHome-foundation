@@ -25,6 +25,35 @@ mqtt:
   client_id: ${hostname}
   topic_prefix: HA
 
+# Example configuration entry
+time:
+  - platform: sntp
+    id: sntp_time
+    timezone: !secret timezone
+    servers:
+     - 0.pool.ntp.org
+     - 1.pool.ntp.org
+     - 2.pool.ntp.org
+    on_time_sync: # might happen before MQTT happens.
+      then:
+        - mqtt.publish:
+            topic: ${hostname}/timesync
+            payload: "We're in sync"  
+    on_time:
+      # Every 60s minutes
+      - seconds: 0
+        minutes: '*'
+        then:
+          - mqtt.publish:
+              topic: HA/${hostname}/time-event
+              payload: !lambda |-
+                return to_string(id(sntp_time).now().timestamp);      
+          - mqtt.publish_json:
+              topic: HA/${hostname}/time-event-json
+              payload: |-
+                root["t"] = id(sntp_time).now().timestamp;
+                root["device"] = "sntp";
+
 ota:
   - platform: esphome
 
