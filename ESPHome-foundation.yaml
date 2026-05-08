@@ -1,5 +1,7 @@
 substitutions:
   hostname: esp32-b9ace8
+  DS18B20_addr: "0xf300000056d06828"
+  sensor_name: lab_temp
 
 esphome:
   name: ${hostname}
@@ -19,6 +21,7 @@ logger:
     # 
 mqtt:
   broker: !secret mqtt_broker
+  discovery: false
   log_topic:
     topic: debug
     level: ERROR
@@ -53,6 +56,28 @@ time:
               payload: |-
                 root["t"] = id(sntp_time).now().timestamp;
                 root["device"] = "sntp";
+
+# Dallas DS18B20 sensor
+one_wire:
+  - platform: gpio
+    pin: GPIO4
+
+sensor:
+  - platform: dallas_temp
+    address: ${DS18B20_addr}  # replace after discovery from logs
+    name: "${sensor_name}"
+    id: freezer_temp
+    update_interval: 60s
+    on_value:
+      then:
+        - mqtt.publish_json:
+            topic: HA/${hostname}/lab/${sensor_name}
+            payload: |-
+              root["t"] = id(sntp_time).now().timestamp;
+              root["temp"] = x * 9.0 / 5.0 + 32.0;
+              root["device"] = "DS18B20";
+              root["DS18B20_ID"] = "${DS18B20_addr}";
+
 
 ota:
   - platform: esphome
